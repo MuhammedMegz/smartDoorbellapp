@@ -124,7 +124,7 @@ public class videoCallActivity extends AppCompatActivity {
     private VideoCapturer createCameraCapturer(CameraEnumerator enumerator) {
         final String[] deviceNames = enumerator.getDeviceNames();
 
-        // First, try to find front facing camera
+        // First, try to find front acing camera
         Logging.d("CAMERA", "Looking for front facing cameras.");
         for (String deviceName : deviceNames) {
             if (enumerator.isFrontFacing(deviceName)) {
