@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Smart Doorbell</string>
+    <string name="email_hint">Email...</string>
+    <string name="password_hint">Password...</string>
+    <string name="login_logo_description">login_logo</string>
+    <string name="login_button_description">login_page_button</string>
+    <string name="login_button">Login</string>
+    <string name="SignUp_button">Sign Up</string>
+    <string name="signUp_button_description">signUp_page_button</string>
+    <string name="login_confirm">Login to Account</string>
+    <string name="signUp_new_Account">Need new Account? Sign Up now !</string>
+    <string name="Toolbar_name">Code Blog</string>
+    <string name="action_search_text">search</string>
+    <string name="action_account_settings_text">Account Settings</string>
+    <string name="action_logout">logout</string>
+    <string name="confirm_password_hint">Confirm Password...</string>
+    <string name="Register_btn">Create New Account</string>
+    <string name="register_login_btn">Already have Account? Login Now!</string>
+    <string name="account_setup_toolbar">Account Setup</string>
+    <string name="name_hint">Your Name</string>
+    <string name="answer_call_btn">btn_answer_call</string>
+    <string name="reject_call_btn">btn_reject_call</string>
+    <string name="open_the_door_txt">Open the Door</string>
+    <string name="open_door_btn">open_door_btn</string>
+    <string name="default_notification_channel_id">1</string>
+</resources>

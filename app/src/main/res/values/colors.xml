@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryRed"> #d32f2f</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryWhite">#FFFFFF</color>
+    <color name="colorPrimaryWhiteTrans">#DCCBCB</color>
+    <color name="colorPrimary">#4e83dc</color>
+    <color name="colorPrimaryRedToolBar">#c71610</color>
+    <color name="colorGoogleBlue">#3700b3</color>
+    <color name="colorGoogleWhiteBlue">#3b60c4</color>
+    <color name="colorGooglePrimaryGreen">#0F9D58</color>
+    <color name="colorDarkGreen">#32CD32</color>
+</resources>
