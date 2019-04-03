@@ -16,32 +16,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <org.webrtc.SurfaceViewRenderer
-            android:id="@+id/local_gl_surface_view"
-            android:layout_width="100dp"
-            android:layout_height="128dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="156dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.97"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.893" />
 
-        <org.webrtc.SurfaceViewRenderer
-            android:id="@+id/remote_gl_surface_view"
+        <WebView
+            android:id="@+id/remote_webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <WebView
+            android:id="@+id/local_webView"
+            android:layout_width="92dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_x="0dp"
+            android:layout_y="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/remote_webView"
+            app:layout_constraintEnd_toEndOf="@+id/remote_webView"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/remote_webView"
+            app:layout_constraintVertical_bias="0.897" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -64,36 +64,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/start_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="Start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Button
-        android:id="@+id/call_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Call"
-        app:layout_constraintEnd_toStartOf="@+id/hangup_btn"
-        app:layout_constraintStart_toEndOf="@+id/start_btn"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <Button
-        android:id="@+id/hangup_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="hangup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/call_btn" />
 
 </android.support.constraint.ConstraintLayout>
