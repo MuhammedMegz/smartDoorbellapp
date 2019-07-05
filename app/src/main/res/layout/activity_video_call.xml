@@ -6,63 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".videoCallActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+
+    <WebView
+        android:id="@+id/remote_webView"
         android:layout_width="match_parent"
-        android:layout_height="367dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_height="match_parent"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-
-        <WebView
-            android:id="@+id/remote_webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <WebView
-            android:id="@+id/local_webView"
-            android:layout_width="92dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_x="0dp"
-            android:layout_y="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/remote_webView"
-            app:layout_constraintEnd_toEndOf="@+id/remote_webView"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/remote_webView"
-            app:layout_constraintVertical_bias="0.897" />
-
-    </android.support.constraint.ConstraintLayout>
+    <WebView
+        android:id="@+id/local_webView"
+        android:layout_width="92dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/open_door_btn"
+        app:layout_constraintEnd_toEndOf="@+id/remote_webView"
+        app:layout_constraintHorizontal_bias="0.973"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/remote_webView"
+        app:layout_constraintVertical_bias="0.077" />
 
     <Button
         android:id="@+id/open_door_btn"
-        android:layout_width="103dp"
-        android:layout_height="94dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="114dp"
+        android:layout_height="112dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/blue_round_btn"
         android:text="@string/open_the_door_txt"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintEnd_toEndOf="@+id/remote_webView"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/remote_webView"
         app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/end_call_btn"
+        android:layout_width="56sp"
+        android:layout_height="56sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/call_decline"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/remote_webView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toEndOf="@+id/open_door_btn"
+        app:layout_constraintTop_toBottomOf="@+id/local_webView"
+        app:layout_constraintVertical_bias="0.924" />
 
 </android.support.constraint.ConstraintLayout>

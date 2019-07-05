@@ -4,63 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryWhite"
     tools:context=".callActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorGooglePrimaryGreen"
-        android:padding="32dp"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:indicatorColor="@color/colorGoogleWhiteBlue"
+        app:indicatorName="LineScaleIndicator"
+        app:layout_constraintBottom_toTopOf="@+id/delince_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vistorName" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="127sp"
+        android:layout_height="121sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginBottom="64dp"
+        android:src="@mipmap/user"
+        app:civ_border_color="@color/colorGoogleWhiteBlue"
+        app:civ_border_width="3sp"
+        app:layout_constraintBottom_toTopOf="@+id/vistorName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="172dp"
-            android:layout_height="189dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="44dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/doorbell2" />
-    </android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/reject_call_btn"
-        android:layout_width="80dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="52dp"
+    <ImageButton
+        android:id="@+id/video_call_button"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/roundbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.504" />
-
-    <Button
-        android:id="@+id/answer_call_btn"
-        android:layout_width="80dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/greenroundbutton"
+        android:src="@mipmap/video_call_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toEndOf="@+id/delince_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886" />
 
+    <ImageButton
+        android:id="@+id/delince_button"
+        android:layout_width="111dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimaryWhite"
+        android:src="@mipmap/call_decline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/video_call_button"
+        app:layout_constraintStart_toEndOf="@+id/voice_call_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91" />
 
+    <ImageButton
+        android:id="@+id/voice_call_button"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundbutton"
+        android:src="@mipmap/mic_call"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delince_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886" />
 
+    <TextView
+        android:id="@+id/vistorName"
+        android:layout_width="151sp"
+        android:layout_height="48sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginBottom="8sp"
+        android:text="Unknown Vistor"
+        android:textAlignment="center"
+        android:textColor="@color/colorGoogleWhiteBlue"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/avi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"
+        app:layout_constraintVertical_bias="0.208" />
 
 </android.support.constraint.ConstraintLayout>

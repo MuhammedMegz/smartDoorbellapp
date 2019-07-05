@@ -8,7 +8,7 @@
     <color name="colorPrimary">#4e83dc</color>
     <color name="colorPrimaryRedToolBar">#c71610</color>
     <color name="colorGoogleBlue">#3700b3</color>
-    <color name="colorGoogleWhiteBlue">#3b60c4</color>
+    <color name="colorGoogleWhiteBlue">#4885ed</color>
     <color name="colorGooglePrimaryGreen">#0F9D58</color>
     <color name="colorDarkGreen">#32CD32</color>
 </resources>
