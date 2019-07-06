@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -51,6 +49,20 @@ public class callActivity extends AppCompatActivity {
         voiceCallBtn = findViewById(R.id.voice_call_button);
         delinceCallBtn = findViewById(R.id.delince_button);
         vNameTxt = findViewById(R.id.vistorName);
+
+        databaseReference.child("visitorName").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String vName = dataSnapshot.getValue().toString().trim();
+                if (!vName.equals("Unkown Visitor"))
+                    vNameTxt.setText(vName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 //        vNameTxt = databaseReference.child("visitorName").addValueEventListener(new ValueEventListener() {
 //            @Override

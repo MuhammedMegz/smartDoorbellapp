@@ -2,21 +2,17 @@ package com.muhammmagdy.smartdoorbell;
 
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
@@ -32,14 +28,14 @@ import java.util.List;
 
 public class videoCallActivity extends AppCompatActivity{
 
-    WebView localVideoWebView;
-    WebView remoteVideoWebView;
+    WebView voiceCallWebView;
+
     FirebaseDatabase fDatabase;
     DatabaseReference dbReference;
+
     Button doorGrantBtn;
     Button endCallBtn;
     AlertDialog openDoorAlertDialog;
-
 
     int peopleInRoom = 0;
     boolean destroyDone = false;
@@ -51,6 +47,7 @@ public class videoCallActivity extends AppCompatActivity{
 
         initView();
         initFirebaseDatabase();
+        initWebView();
         enableWebViews();
         doorGrantBtn.setOnClickListener(view -> initAlertDialog());
         endCallBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +69,7 @@ public class videoCallActivity extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
         destroyDone = true;
-        remoteVideoWebView.destroy();
+        voiceCallWebView.destroy();
         resetCallDB();
         goToMainActivity();
     }
@@ -80,7 +77,7 @@ public class videoCallActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         super.onStop();
-        remoteVideoWebView.destroy();
+        voiceCallWebView.destroy();
         if(!destroyDone)
             resetCallDB();
         finish();
@@ -111,8 +108,7 @@ public class videoCallActivity extends AppCompatActivity{
         }
     }
     private void initView(){
-        localVideoWebView = findViewById(R.id.local_webView);
-        remoteVideoWebView = findViewById(R.id.remote_webView);
+        voiceCallWebView = findViewById(R.id.remote_webView);
         doorGrantBtn = findViewById(R.id.open_door_btn);
         endCallBtn = findViewById(R.id.end_call_btn);
     }
@@ -140,7 +136,7 @@ public class videoCallActivity extends AppCompatActivity{
                 .setMessage("Are yo sure to open the door ?").setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Yes", (dialogInterface, whichButton) -> {
                     resetCallDB();
-                    remoteVideoWebView.destroy();
+                    voiceCallWebView.destroy();
                     dbReference.child("DoorGrant").setValue(1);
                     goToMainActivity();
                  })
@@ -148,19 +144,47 @@ public class videoCallActivity extends AppCompatActivity{
                 .show();
     }
 
+
+    private void initWebView() {
+        WebSettings webSettings = voiceCallWebView.getSettings();
+        // Enable Javascript
+        webSettings.setJavaScriptEnabled(true);
+        // Enable multiple window
+        webSettings.setSupportMultipleWindows(true);
+        // Allow WebView Content access
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setLoadWithOverviewMode(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            webSettings.setSafeBrowsingEnabled(true);
+        }
+    }
+
+
     private void enableWebViews(){
 
-        remoteVideoWebView.setWebChromeClient(new WebChromeClient(){
-            @TargetApi(Build.VERSION_CODES.M)
+
+        voiceCallWebView.getSettings().setLoadsImagesAutomatically(true);
+        voiceCallWebView.getSettings().setLoadWithOverviewMode(true);
+        voiceCallWebView.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
+        voiceCallWebView.setScrollbarFadingEnabled(true);
+        voiceCallWebView.getSettings().setAllowFileAccess(true);
+        voiceCallWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        voiceCallWebView.getSettings().setDomStorageEnabled(true);
+        voiceCallWebView.getSettings().setAppCacheEnabled(true);
+        voiceCallWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
+
+        voiceCallWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 request.grant(request.getResources());
             }
         });
 
-        remoteVideoWebView.getSettings().setJavaScriptEnabled(true);
-        remoteVideoWebView.getFitsSystemWindows();
-        remoteVideoWebView.loadUrl("https://mohamed1996.pythonanywhere.com/android");
+        voiceCallWebView.loadUrl("https://mohamed1996.pythonanywhere.com/android");
     }
 
 
@@ -184,6 +208,40 @@ public class videoCallActivity extends AppCompatActivity{
     //        val = val * 100d;
     //        return val.intValue();
     //    }
+
+
+//    private void setUpWebViewDefaults(WebView webView) {
+//        WebSettings settings = webView.getSettings();
+//
+//        // Enable Javascript
+//        settings.setJavaScriptEnabled(true);
+//
+//        // Use WideViewport and Zoom out if there is no viewport defined
+//        settings.setUseWideViewPort(true);
+//        settings.setLoadWithOverviewMode(true);
+//
+//        // Enable pinch to zoom without the zoom buttons
+//        settings.setBuiltInZoomControls(true);
+//
+//        // Allow use of Local Storage
+//        settings.setDomStorageEnabled(true);
+//
+//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+//            // Hide the zoom controls for HONEYCOMB+
+//            settings.setDisplayZoomControls(false);
+//        }
+//
+//        // Enable remote debugging via chrome://inspect
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WebView.setWebContentsDebuggingEnabled(true);
+//        }
+//
+//        webView.setWebViewClient(new WebViewClient());
+//
+//        // AppRTC requires third party cookies to work
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        cookieManager.setAcceptThirdPartyCookies(voiceCallWebView, true);
+//    }
 
 
 

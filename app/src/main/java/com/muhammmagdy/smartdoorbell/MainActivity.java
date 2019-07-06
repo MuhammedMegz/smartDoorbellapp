@@ -1,17 +1,16 @@
 package com.muhammmagdy.smartdoorbell;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Base64;
@@ -123,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
             alertDialogInit();
             alertDialogBuilder.show();
         }
-
-
     }
 
 
@@ -135,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        mainToolBar = (Toolbar) findViewById(R.id.main_toolbar);
+        mainToolBar = findViewById(R.id.main_toolbar);
     }
 
     private void initFirebase() {
@@ -146,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -154,14 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
 
             case R.id.action_logout_btn:
                 logout();
                 return true;
-            case R.id.action_settings_btn:
-                goToAccountSetup();
+//            case R.id.action_settings_btn:
+//                goToAccountSetup();
 
         }
         return false;
@@ -219,6 +214,8 @@ public class MainActivity extends AppCompatActivity {
         inputVisitorName = new EditText(this);
         inputVisitorName.setInputType(InputType.TYPE_CLASS_TEXT);
         alertDialogBuilder.setView(inputVisitorName);
+        alertDialogBuilder.setIcon(R.mipmap.new_user);
+        alertDialogBuilder.setView(inputVisitorName, 50, 30, 50, 30);
         alertDialogBuilder.setTitle("Add New Visitor Name");
         alertDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
