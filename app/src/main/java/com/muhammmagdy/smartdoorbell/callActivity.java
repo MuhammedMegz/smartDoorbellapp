@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class callActivity extends AppCompatActivity {
 
     ImageButton videoCallBtn;
     ImageButton voiceCallBtn;
-    ImageButton delinceCallBtn;
+    Button delinceCallBtn;
 
     TextView vNameTxt;
 
@@ -47,7 +48,7 @@ public class callActivity extends AppCompatActivity {
 
         videoCallBtn = findViewById(R.id.video_call_button);
         voiceCallBtn = findViewById(R.id.voice_call_button);
-        delinceCallBtn = findViewById(R.id.delince_button);
+        delinceCallBtn = findViewById(R.id.delineBtn);
         vNameTxt = findViewById(R.id.vistorName);
 
         databaseReference.child("visitorName").addValueEventListener(new ValueEventListener() {
@@ -99,6 +100,7 @@ public class callActivity extends AppCompatActivity {
         delinceCallBtn.setOnClickListener(view -> {
             r.stop();
             databaseReference.child("AV").setValue("null");
+            databaseReference.child("bellButton").setValue(0);
             endCommingCall();
         });
     }

@@ -1,6 +1,5 @@
 package com.muhammmagdy.smartdoorbell;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -18,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mainToolBar;
     AlertDialog.Builder alertDialogBuilder;
     EditText inputVisitorName;
+    TextView doorState;
+    Button addVisitor;
+    ImageView doorStateLock;
 
 
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    Button addVisitor;
+
 
     String global_visitorName = "";
     String encodedImage = null;
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialogInit();
 
 
-        addVisitor = findViewById(R.id.addNewVisitor);
+
         addVisitor.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -71,13 +75,31 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"),galleryPick);
         });
 
+        myRef.child("doorbell_status").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int doorVal = Integer.parseInt(dataSnapshot.getValue().toString());
+                if (doorVal == 1) {
+                    doorState.setText("Door Current State: ");
+                    doorStateLock.setImageResource(R.mipmap.open_lock);
+                } else if (doorVal == 0) {
+                    doorState.setText("Door Current State: ");
+                    doorStateLock.setImageResource(R.mipmap.close_lock);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         myRef.child("bellButton").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Toast.makeText(MainActivity.this, dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.getValue().toString().equals("1")) {
-                    myRef.child("bellButton").setValue(0);
+                    //myRef.child("bellButton").setValue(0);
                     startActivity(new Intent(MainActivity.this, callActivity.class));
                     finish();
                 }
@@ -133,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         mainToolBar = findViewById(R.id.main_toolbar);
+        addVisitor = findViewById(R.id.addNewVisitor);
+        doorState = findViewById(R.id.doorStateTxt);
+        doorStateLock = findViewById(R.id.doorLockIcon);
     }
 
     private void initFirebase() {
@@ -217,17 +242,13 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder.setIcon(R.mipmap.new_user);
         alertDialogBuilder.setView(inputVisitorName, 50, 30, 50, 30);
         alertDialogBuilder.setTitle("Add New Visitor Name");
-        alertDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        global_visitorName = inputVisitorName.getText().toString();
-                        myRef.child("VISITORS IMGS").child("Base64").setValue(encodedImage);
-                        myRef.child("VISITORS IMGS").child("Name").setValue(global_visitorName);
-                    }
-                });
+        alertDialogBuilder.setPositiveButton("Save", (dialog, which) -> {
+            global_visitorName = inputVisitorName.getText().toString();
+            myRef.child("VISITORS IMGS").child("Base64").setValue(encodedImage);
+            myRef.child("VISITORS IMGS").child("Name").setValue(global_visitorName);
+        });
         alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
     }
-
 
     public String getPathFromURI(Uri contentUri) {
         String res = null;

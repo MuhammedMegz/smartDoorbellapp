@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -45,17 +46,22 @@ public class videoCallActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_call);
 
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+
         initView();
         initFirebaseDatabase();
         initWebView();
         enableWebViews();
         doorGrantBtn.setOnClickListener(view -> initAlertDialog());
-        endCallBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetCallDB();
-                goToMainActivity();
-            }
+        endCallBtn.setOnClickListener(v -> {
+            resetCallDB();
+            goToMainActivity();
         });
     }
 
@@ -192,6 +198,7 @@ public class videoCallActivity extends AppCompatActivity{
         if (!(peopleInRoom < 1))
             dbReference.child("peopleInRoom").setValue(peopleInRoom-1);
         dbReference.child("CalleeToCaller").setValue("\"bye\"");
+        dbReference.child("bellButton").setValue(0);
     }
 
     private void goToMainActivity(){
