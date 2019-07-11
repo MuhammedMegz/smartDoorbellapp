@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int doorVal = Integer.parseInt(dataSnapshot.getValue().toString());
                 if (doorVal == 1) {
-                    doorState.setText("Door Current State: ");
+                    //doorState.setText("Door Current State: ");
                     doorStateLock.setImageResource(R.mipmap.open_lock);
                 } else if (doorVal == 0) {
-                    doorState.setText("Door Current State: ");
+                    //doorState.setText("Door Current State: ");
                     doorStateLock.setImageResource(R.mipmap.close_lock);
                 }
             }
