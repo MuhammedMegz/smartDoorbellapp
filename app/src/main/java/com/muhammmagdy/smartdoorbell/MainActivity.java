@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -81,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
                 int doorVal = Integer.parseInt(dataSnapshot.getValue().toString());
                 if (doorVal == 1) {
                     //doorState.setText("Door Current State: ");
+                    Toast.makeText(MainActivity.this, "Door is open now !", Toast.LENGTH_SHORT).show();
                     doorStateLock.setImageResource(R.mipmap.open_lock);
+
                 } else if (doorVal == 0) {
                     //doorState.setText("Door Current State: ");
+                    Toast.makeText(MainActivity.this, "Door is closed now !", Toast.LENGTH_SHORT).show();
                     doorStateLock.setImageResource(R.mipmap.close_lock);
+
                 }
             }
 

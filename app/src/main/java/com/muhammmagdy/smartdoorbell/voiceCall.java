@@ -1,8 +1,11 @@
 package com.muhammmagdy.smartdoorbell;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +34,11 @@ public class voiceCall extends AppCompatActivity {
     Button openDoorBtn;
     Button endCallBtn;
 
+    MediaPlayer mediaPlayer;
+
     AlertDialog openDoorAlertDialog;
+
+    private AudioManager m_amAudioManager;
 
     FirebaseDatabase fDatabase;
     DatabaseReference dbReference;
@@ -45,12 +52,15 @@ public class voiceCall extends AppCompatActivity {
         setContentView(R.layout.activity_voice_call);
 
 
+
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
-
+        initEarPiece();
         initViews();
         initFirebaseDatabase();
         initWebView();
@@ -59,6 +69,7 @@ public class voiceCall extends AppCompatActivity {
         openDoorBtn.setOnClickListener(v -> initAlertDialog());
         endCallBtn.setOnClickListener(v -> {
             resetCallDB();
+            dbReference.child("bellButton").setValue(0);
             goToMainActivity();
         });
 
@@ -77,6 +88,7 @@ public class voiceCall extends AppCompatActivity {
         super.onBackPressed();
         destroyDone = true;
         voiceCallWebView.destroy();
+        dbReference.child("bellButton").setValue(0);
         resetCallDB();
         goToMainActivity();
     }
@@ -85,6 +97,7 @@ public class voiceCall extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         voiceCallWebView.destroy();
+        dbReference.child("bellButton").setValue(0);
         if (!destroyDone)
             resetCallDB();
         finish();
@@ -146,6 +159,7 @@ public class voiceCall extends AppCompatActivity {
                 .setPositiveButton("Yes", (dialogInterface, whichButton) -> {
                     resetCallDB();
                     voiceCallWebView.destroy();
+                    dbReference.child("bellButton").setValue(0);
                     dbReference.child("DoorGrant").setValue(1);
                     goToMainActivity();
                 })
@@ -173,7 +187,6 @@ public class voiceCall extends AppCompatActivity {
 
 
     private void enableWebViews() {
-
 
         voiceCallWebView.getSettings().setLoadsImagesAutomatically(true);
         voiceCallWebView.getSettings().setLoadWithOverviewMode(true);
@@ -204,9 +217,14 @@ public class voiceCall extends AppCompatActivity {
     }
 
     private void goToMainActivity() {
-
         Intent main = new Intent(voiceCall.this, MainActivity.class);
         startActivity(main);
         finish();
+    }
+
+    private void initEarPiece() {
+        m_amAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        m_amAudioManager.setMode(AudioManager.STREAM_VOICE_CALL);
+        m_amAudioManager.setSpeakerphoneOn(false);
     }
 }

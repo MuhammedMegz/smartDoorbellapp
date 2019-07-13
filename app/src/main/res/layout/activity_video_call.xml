@@ -52,9 +52,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/remote_webView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
-        app:layout_constraintStart_toEndOf="@+id/open_door_btn"
+        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/remote_webView"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.932" />
 
 </android.support.constraint.ConstraintLayout>
