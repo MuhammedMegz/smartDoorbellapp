@@ -77,15 +77,19 @@ public class videoCallActivity extends AppCompatActivity{
         destroyDone = true;
         voiceCallWebView.destroy();
         resetCallDB();
+        dbReference.child("bellButton").setValue(0);
         goToMainActivity();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         voiceCallWebView.destroy();
+        dbReference.child("bellButton").setValue(0);
         if(!destroyDone)
             resetCallDB();
+
         finish();
     }
 
@@ -143,6 +147,7 @@ public class videoCallActivity extends AppCompatActivity{
                 .setPositiveButton("Yes", (dialogInterface, whichButton) -> {
                     resetCallDB();
                     voiceCallWebView.destroy();
+                    dbReference.child("bellButton").setValue(0);
                     dbReference.child("DoorGrant").setValue(1);
                     goToMainActivity();
                  })
@@ -171,7 +176,6 @@ public class videoCallActivity extends AppCompatActivity{
 
     private void enableWebViews(){
 
-
         voiceCallWebView.getSettings().setLoadsImagesAutomatically(true);
         voiceCallWebView.getSettings().setLoadWithOverviewMode(true);
         voiceCallWebView.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -181,7 +185,7 @@ public class videoCallActivity extends AppCompatActivity{
         voiceCallWebView.getSettings().setDomStorageEnabled(true);
         voiceCallWebView.getSettings().setAppCacheEnabled(true);
         voiceCallWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-
+        voiceCallWebView.getSettings().setDefaultZoom(WebSettings.ZoomDensity.FAR);
 
         voiceCallWebView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -204,6 +208,7 @@ public class videoCallActivity extends AppCompatActivity{
     private void goToMainActivity(){
 
         Intent main = new Intent(videoCallActivity.this, MainActivity.class);
+        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
         finish();
     }

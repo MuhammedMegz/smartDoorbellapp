@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,8 +33,6 @@ public class voiceCall extends AppCompatActivity {
     Button openDoorBtn;
     Button endCallBtn;
 
-    MediaPlayer mediaPlayer;
-
     AlertDialog openDoorAlertDialog;
 
     private AudioManager m_amAudioManager;
@@ -51,8 +48,6 @@ public class voiceCall extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_call);
 
-
-
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -66,14 +61,11 @@ public class voiceCall extends AppCompatActivity {
         initWebView();
         enableWebViews();
 
-        openDoorBtn.setOnClickListener(v -> initAlertDialog());
+        openDoorBtn.setOnClickListener(view -> initAlertDialog());
         endCallBtn.setOnClickListener(v -> {
             resetCallDB();
-            dbReference.child("bellButton").setValue(0);
             goToMainActivity();
         });
-
-
     }
 
 
@@ -109,7 +101,6 @@ public class voiceCall extends AppCompatActivity {
         openDoorBtn = findViewById(R.id.open_door_btn);
         endCallBtn = findViewById(R.id.end_call_btn);
     }
-
 
     private void accessCameraPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -198,7 +189,6 @@ public class voiceCall extends AppCompatActivity {
         voiceCallWebView.getSettings().setAppCacheEnabled(true);
         voiceCallWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-
         voiceCallWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
@@ -214,10 +204,13 @@ public class voiceCall extends AppCompatActivity {
         if (!(peopleInRoom < 1))
             dbReference.child("peopleInRoom").setValue(peopleInRoom - 1);
         dbReference.child("CalleeToCaller").setValue("\"bye\"");
+        dbReference.child("bellButton").setValue(0);
+
     }
 
     private void goToMainActivity() {
         Intent main = new Intent(voiceCall.this, MainActivity.class);
+        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);
         finish();
     }

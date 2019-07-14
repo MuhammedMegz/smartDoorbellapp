@@ -105,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this, dataSnapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
                 if (dataSnapshot.getValue().toString().equals("1")) {
                     //myRef.child("bellButton").setValue(0);
-                    startActivity(new Intent(MainActivity.this, callActivity.class));
+                    Intent callIntent = new Intent(MainActivity.this, callActivity.class);
+                    callIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(callIntent);
                     finish();
                 }
             }

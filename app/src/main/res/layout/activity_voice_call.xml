@@ -18,10 +18,10 @@
         android:id="@+id/profile_image"
         android:layout_width="127sp"
         android:layout_height="121sp"
-        android:layout_marginStart="8sp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@mipmap/user"
         app:civ_border_color="@color/colorGoogleWhiteBlue"
         app:civ_border_width="3sp"
@@ -44,37 +44,38 @@
         android:textColor="@color/colorPrimaryWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/end_call_btn"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vistorName"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
 
     <TextView
         android:id="@+id/vistorName"
         android:layout_width="151sp"
         android:layout_height="48sp"
-        android:layout_marginStart="8sp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8sp"
-        android:layout_marginBottom="8sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="316dp"
         android:text="Visitor"
         android:textAlignment="center"
         android:textColor="@color/colorGoogleWhiteBlue"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/avi"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"
-        app:layout_constraintVertical_bias="0.208" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/end_call_btn"
         android:layout_width="56sp"
         android:layout_height="56sp"
-        android:layout_marginTop="616dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@mipmap/call_decline"
         android:textAllCaps="false"
@@ -82,8 +83,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.864"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.919" />
 
 
 </android.support.constraint.ConstraintLayout>
